@@ -19,6 +19,7 @@ jobs:
     name: PHP ${{ matrix.php }}
 
     steps:
+    - run: env
     - name: Checkout code
       uses: actions/checkout@v3
 
