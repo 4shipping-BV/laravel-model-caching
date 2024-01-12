@@ -58,7 +58,7 @@ jobs:
     - name: Install Dependencies
       run: |
         composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-        composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --ignore-platform-reqs
 
     - name: Execute Integration and Feature tests via PHPUnit
       run: vendor/bin/phpunit --configuration phpunit.xml.dist --testsuite Integration,Feature
