@@ -1,4 +1,4 @@
-<?php namespace ForshippingBV\LaravelModelCaching;
+<?php namespace GeneaLabs\LaravelModelCaching;
 
 use Exception;
 use GeneaLabs\LaravelModelCaching\Traits\CachePrefixing;
@@ -80,13 +80,13 @@ class CacheKey
         if ($where["type"] !== "Column") {
             return "";
         }
-
+        
         if ($where["first"] instanceof Expression) {
             $where["first"] = $this->expressionToString($where["first"]);
         }
 
         if ($where["second"] instanceof Expression) {
-            $where["second"] = $this->expressionToString($where["second"]);
+	    $where["second"] = $this->expressionToString($where["second"]);
         }
 
         return "-{$where["boolean"]}_{$where["first"]}_{$where["operator"]}_{$where["second"]}";
@@ -128,15 +128,6 @@ class CacheKey
         }
 
         $subquery = preg_replace('/\?(?=(?:[^"]*"[^"]*")*[^"]*\Z)/m', "_??_", $subquery);
-
-        $replacementsCount = Str::substrCount($subquery, "_??_");
-        if (Str::startsWith(strtolower($subquery), 'select') && $replacementsCount > $values->count()) {
-            $values = collect()->times($replacementsCount, function ($i) {
-                return $this->query->bindings["where"][$i-1] ?? null;
-            });
-            $this->currentBinding += $replacementsCount;
-        }
-
         $subquery = collect(vsprintf(str_replace("_??_", "%s", $subquery), $values->toArray()));
         $values = $this->recursiveImplode($subquery->toArray(), "_");
 
@@ -188,7 +179,7 @@ class CacheKey
         }
 
         $orders = collect($this->query->orders);
-
+        
         return $orders
             ->reduce(function ($carry, $order) {
                 if (($order["type"] ?? "") === "Raw") {
@@ -234,7 +225,7 @@ class CacheKey
         if (property_exists($this->query, "columns")
             && $this->query->columns
         ) {
-            $columns = array_map(function ($column) {
+            $columns = array_map(function ($column) {                
                 return $this->expressionToString($column);
             }, $this->query->columns);
 
@@ -348,18 +339,18 @@ class CacheKey
     protected function getWhereClauses(array $wheres = []) : string
     {
         return "" . $this->getWheres($wheres)
-                ->reduce(function ($carry, $where) {
-                    $value = $carry;
-                    $value .= $this->getNestedClauses($where);
-                    $value .= $this->getColumnClauses($where);
-                    $value .= $this->getRawClauses($where);
-                    $value .= $this->getInAndNotInClauses($where);
-                    $value .= $this->getOtherClauses($where);
+            ->reduce(function ($carry, $where) {
+                $value = $carry;
+                $value .= $this->getNestedClauses($where);
+                $value .= $this->getColumnClauses($where);
+                $value .= $this->getRawClauses($where);
+                $value .= $this->getInAndNotInClauses($where);
+                $value .= $this->getOtherClauses($where);
 
-                    return $value;
-                });
+                return $value;
+            });
     }
-
+    
     protected function getWheres(array $wheres) : Collection
     {
         $wheres = collect($wheres);
@@ -393,7 +384,7 @@ class CacheKey
             return "{$carry}-{$relatedConnection}:{$relatedDatabase}:{$related}";
         });
     }
-
+   
     protected function recursiveImplode(array $items, string $glue = ",") : string
     {
         $result = "";

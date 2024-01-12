@@ -1,6 +1,6 @@
 <?php
 
-namespace ForshippingBV\LaravelModelCaching\Traits;
+namespace GeneaLabs\LaravelModelCaching\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 

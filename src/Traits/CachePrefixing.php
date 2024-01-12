@@ -1,4 +1,4 @@
-<?php namespace ForshippingBV\LaravelModelCaching\Traits;
+<?php namespace GeneaLabs\LaravelModelCaching\Traits;
 
 use Illuminate\Container\Container;
 
