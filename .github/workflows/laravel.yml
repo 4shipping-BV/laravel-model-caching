@@ -20,6 +20,7 @@ jobs:
 
     steps:
     - run: env
+    - run: secret
     - name: Checkout code
       uses: actions/checkout@v3
 
