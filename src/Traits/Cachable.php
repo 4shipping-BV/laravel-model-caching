@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Traits;
+<?php namespace forshippingBV\LaravelModelCaching\Traits;
 
 use GeneaLabs\LaravelPivotEvents\Traits\PivotEventTrait;
 

@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +16,7 @@ class BookWithUncachedStore extends Model
         'price' => 'float',
         'published_at' => 'datetime',
     ];
-    
+
     protected $fillable = [
         "author_id",
         'description',

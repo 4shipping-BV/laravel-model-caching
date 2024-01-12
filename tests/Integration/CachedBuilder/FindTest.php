@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration\CachedBuilder;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration\CachedBuilder;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Author;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedAuthor;
@@ -66,7 +66,7 @@ class FindTest extends IntegrationTestCase
             ->find(1);
         $author2 = (new Author)
             ->find([1]);
-        
+
         $this->assertNotEquals($author1, $author2);
         $this->assertIsIterable($author2);
         $this->assertEquals(Author::class, get_class($author1));

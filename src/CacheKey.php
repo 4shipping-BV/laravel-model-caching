@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching;
+<?php namespace forshippingBV\LaravelModelCaching;
 
 use Exception;
 use GeneaLabs\LaravelModelCaching\Traits\CachePrefixing;

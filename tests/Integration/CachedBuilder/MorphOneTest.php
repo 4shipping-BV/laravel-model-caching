@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration\CachedBuilder;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration\CachedBuilder;
 
 use Faker\Generator as Faker;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;

@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneaLabs\LaravelModelCaching\Providers;
+namespace forshippingBV\LaravelModelCaching\Providers;
 
 use GeneaLabs\LaravelModelCaching\Console\Commands\Clear;
 use GeneaLabs\LaravelModelCaching\Console\Commands\Publish;

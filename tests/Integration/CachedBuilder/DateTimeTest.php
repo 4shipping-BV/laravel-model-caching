@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration\CachedBuilder;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration\CachedBuilder;
 
 use DateInterval;
 use DateTime;

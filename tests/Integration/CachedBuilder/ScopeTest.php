@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration\CachedBuilder;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration\CachedBuilder;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Author;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedAuthor;
@@ -259,7 +259,7 @@ class ScopeTest extends IntegrationTestCase
             ->create(["name" => "Anton Junior"]);
         $this->actingAs($user);
         DB::enableQueryLog();
-        
+
         (new AuthorBeginsWithScoped)
             ->get();
         $queryLog = DB::getQueryLog();

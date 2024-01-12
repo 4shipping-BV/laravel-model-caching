@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration\CachedBuilder;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration\CachedBuilder;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Author;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;
@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 
 class CreateTest extends IntegrationTestCase
 {
-    
+
 
     public function testFirstOrCreateFlushesCacheForModel()
     {

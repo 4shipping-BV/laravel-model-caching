@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Providers;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;

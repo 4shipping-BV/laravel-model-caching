@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Scopes;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Scopes;
 
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;

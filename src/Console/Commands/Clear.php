@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Console\Commands;
+<?php namespace forshippingBV\LaravelModelCaching\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;

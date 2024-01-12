@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneaLabs\LaravelModelCaching\Traits;
+namespace forshippingBV\LaravelModelCaching\Traits;
 
 use Closure;
 use GeneaLabs\LaravelModelCaching\CachedBuilder;
@@ -41,7 +41,7 @@ trait Caching
         if ($this->scopesAreApplied) {
             return $this;
         }
-        
+
         return parent::applyScopes();
     }
 
@@ -170,7 +170,7 @@ trait Caching
             ?? Container::getInstance()
                 ->make("db")
                 ->query();
-        
+
         if (
             $this->query
             && method_exists($this->query, "getQuery")
@@ -311,7 +311,7 @@ trait Caching
                     ) {
                         return $carry;
                     }
-        
+
                     $relatedModel = $this->model->$related()->getRelated();
 
                     if (

@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Nova;
+namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Nova;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;
 use Illuminate\Http\Request;

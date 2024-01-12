@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Nova;
+namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Nova;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource as NovaResource;

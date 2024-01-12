@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests;
+<?php namespace forshippingBV\LaravelModelCaching\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
 

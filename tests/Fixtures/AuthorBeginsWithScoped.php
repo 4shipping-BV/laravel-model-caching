@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Scopes\NameBeginsWith;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;

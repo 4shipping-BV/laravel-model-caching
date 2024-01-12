@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Http\Resources;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

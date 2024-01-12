@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Integration;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Integration;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Author;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;
@@ -169,7 +169,7 @@ class CachedModelTest extends IntegrationTestCase
         $author = (new AuthorWithCooldown)
             ->withCacheCooldownSeconds(1)
             ->first();
-        
+
         [$usesCacheCooldown, $expiresAt, $savedAt] = $method->invokeArgs($author, [$author]);
 
         $this->assertEquals($usesCacheCooldown, 1);

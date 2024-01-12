@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures\Observers;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures\Observers;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Author;
 

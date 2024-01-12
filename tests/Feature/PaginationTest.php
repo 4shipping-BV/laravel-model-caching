@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Feature;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Feature;
 
 use GeneaLabs\LaravelModelCaching\Tests\FeatureTestCase;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;

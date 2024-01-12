@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\LaravelModelCaching\Tests\Fixtures;
+<?php namespace forshippingBV\LaravelModelCaching\Tests\Fixtures;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,7 +31,7 @@ class Author extends Model
     {
         return $this->hasManyThrough(Printer::class, Book::class);
     }
-    
+
     public function profile() : HasOne
     {
         return $this->hasOne(Profile::class);

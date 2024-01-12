@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneaLabs\LaravelModelCaching\Tests;
+namespace forshippingBV\LaravelModelCaching\Tests;
 
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Nova\AuthorResource;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Nova\BookResource;
