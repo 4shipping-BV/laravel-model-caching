@@ -154,6 +154,19 @@ class CacheKey
         }
 
         $subquery = preg_replace('/\?(?=(?:[^"]*"[^"]*")*[^"]*\Z)/m', "_??_", $subquery);
+
+        /**
+         * For whereIn(<subquery>) we will gather all of the values from the bindings, adjust the index so any
+         * subsequent wheres carry on from the right binding index, and then build the full select query as a string.
+         */
+        $replacementsCount = Str::substrCount($subquery, "_??_");
+        if (Str::startsWith(strtolower($subquery), 'select') && $replacementsCount > $values->count()) {
+            $values = collect()->times($replacementsCount, function ($i) {
+                return $this->query->bindings["where"][$i-1] ?? null;
+            });
+            $this->currentBinding += $replacementsCount;
+        }
+
         $subquery = collect(vsprintf(str_replace("_??_", "%s", $subquery), $values->toArray()));
         $values = $this->recursiveImplode($subquery->toArray(), "_");
 
@@ -235,7 +248,7 @@ class CacheKey
 
 	if (data_get($where, "column") instanceof Expression) {
             $where["column"] = $this->expressionToString(data_get($where, "column"));
-        }    
+        }
 
         $column .= isset($where["column"]) ? $where["column"] : "";
         $column .= isset($where["columns"]) ? implode("-", $where["columns"]) : "";

@@ -5,6 +5,10 @@ use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Book;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedAuthor;
 use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedBook;
 use GeneaLabs\LaravelModelCaching\Tests\IntegrationTestCase;
+use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Post;
+use GeneaLabs\LaravelModelCaching\Tests\Fixtures\Publisher;
+use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedPublisher;
+use GeneaLabs\LaravelModelCaching\Tests\Fixtures\UncachedPost;
 
 class WhereInTest extends IntegrationTestCase
 {
@@ -98,5 +102,47 @@ class WhereInTest extends IntegrationTestCase
 
         $this->assertEmpty($authors->diffKeys($cachedResults));
         $this->assertEmpty($liveResults->diffKeys($cachedResults));
+    }
+
+    public function testWhereInSubQueryUsesCorrectBindings()
+    {
+        $key = sha1("genealabs:laravel-model-caching:testing:{$this->testingSqlitePath}testing.sqlite:books:genealabslaravelmodelcachingtestsfixturesbook-publisher_id_in_select_id_from_publishers_where_name_=_Publisher_Foo_or_name_=_Publisher_Bar-id_>_0");
+        $tags = [
+            "genealabs:laravel-model-caching:testing:{$this->testingSqlitePath}testing.sqlite:genealabslaravelmodelcachingtestsfixturesbook",
+        ];
+
+        /** @var Collection $publishers */
+        $publishers = factory(UncachedPublisher::class, 5)->create();
+        $publishers->get(1)->update(['name' => 'Publisher Foo']);
+        $publishers->get(3)->update(['name' => 'Publisher Bar']);
+
+        $publishers->each(function (UncachedPublisher $publisher) {
+            factory(UncachedBook::class, 2)->create(['publisher_id' => $publisher->id]);
+        });
+
+        $books = Book::query()
+            ->whereIn('publisher_id',
+                Publisher::select('id')
+                    ->where('name', 'Publisher Foo')
+                    ->orWhere('name', 'Publisher Bar')
+            )
+            ->where('id', '>', 0)
+            ->get()->pluck('id')->toArray();
+
+        $cachedResults = $this
+            ->cache()
+            ->tags($tags)
+            ->get($key)['value'];
+
+        $liveResults = Book::query()
+            ->whereIn('publisher_id',
+                Publisher::select('id')
+                    ->where('name', 'Publisher Foo')
+                    ->orWhere('name', 'Publisher Bar')
+            )->get()->pluck('id')->toArray();
+
+        $this->assertCount(4, $books);
+        $this->assertSame($liveResults, $books);
+        $this->assertSame($liveResults, $cachedResults->pluck('id')->filter()->toArray());
     }
 }
