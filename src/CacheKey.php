@@ -1,8 +1,5 @@
-<?php
+<?php namespace GeneaLabs\LaravelModelCaching;
 
-namespace GeneaLabs\LaravelModelCaching;
-
-use BackedEnum;
 use Exception;
 use GeneaLabs\LaravelModelCaching\Traits\CachePrefixing;
 use Illuminate\Database\Query\Expression;
@@ -10,7 +7,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
-use UnitEnum;
 
 class CacheKey
 {
@@ -51,7 +47,6 @@ class CacheKey
         $key .= $this->getIdColumn($idColumn ?: "");
         $key .= $this->getQueryColumns($columns);
         $key .= $this->getWhereClauses();
-        $key .= $this->getHavingClauses();
         $key .= $this->getWithModels();
         $key .= $this->getOrderByClauses();
         $key .= $this->getOffsetClause();
@@ -59,7 +54,7 @@ class CacheKey
         $key .= $this->getBindingsSlug();
         $key .= $keyDifferentiator;
         $key .= $this->macroKey;
-
+// dump($key);
         return $key;
     }
 
@@ -91,7 +86,7 @@ class CacheKey
         }
 
         if ($where["second"] instanceof Expression) {
-	    $where["second"] = $this->expressionToString($where["second"]);
+            $where["second"] = $this->expressionToString($where["second"]);
         }
 
         return "-{$where["boolean"]}_{$where["first"]}_{$where["operator"]}_{$where["second"]}";
@@ -100,27 +95,6 @@ class CacheKey
     protected function getCurrentBinding(string $type, $bindingFallback = null)
     {
         return data_get($this->query->bindings, "{$type}.{$this->currentBinding}", $bindingFallback);
-    }
-
-    protected function getHavingClauses()
-    {
-        return Collection::make($this->query->havings)->reduce(function ($carry, $having) {
-            $value = $carry;
-            $value .= $this->getHavingClause($having);
-
-            return $value;
-        });
-    }
-
-    protected function getHavingClause(array $having): string
-    {
-        $return = '-having';
-
-        foreach ($having as $key => $value) {
-            $return .= '_' . $key . '_' . str_replace(' ', '_', $value);
-        }
-
-        return $return;
     }
 
     protected function getIdColumn(string $idColumn) : string
@@ -155,10 +129,6 @@ class CacheKey
 
         $subquery = preg_replace('/\?(?=(?:[^"]*"[^"]*")*[^"]*\Z)/m', "_??_", $subquery);
 
-        /**
-         * For whereIn(<subquery>) we will gather all of the values from the bindings, adjust the index so any
-         * subsequent wheres carry on from the right binding index, and then build the full select query as a string.
-         */
         $replacementsCount = Str::substrCount($subquery, "_??_");
         if (Str::startsWith(strtolower($subquery), 'select') && $replacementsCount > $values->count()) {
             $values = collect()->times($replacementsCount, function ($i) {
@@ -245,11 +215,6 @@ class CacheKey
         $value .= $this->getValuesClause($where);
 
         $column = "";
-
-	if (data_get($where, "column") instanceof Expression) {
-            $where["column"] = $this->expressionToString(data_get($where, "column"));
-        }
-
         $column .= isset($where["column"]) ? $where["column"] : "";
         $column .= isset($where["columns"]) ? implode("-", $where["columns"]) : "";
 
@@ -311,7 +276,7 @@ class CacheKey
 
     protected function getTypeClause($where) : string
     {
-        $type = in_array($where["type"], ["InRaw", "In", "NotIn", "Null", "NotNull", "between", "NotInSub", "InSub", "JsonContains", "Fulltext", "JsonContainsKey"])
+        $type = in_array($where["type"], ["InRaw", "In", "NotIn", "Null", "NotNull", "between", "NotInSub", "InSub", "JsonContains", "Fulltext"])
             ? strtolower($where["type"])
             : strtolower($where["operator"]);
 
@@ -383,16 +348,16 @@ class CacheKey
     protected function getWhereClauses(array $wheres = []) : string
     {
         return "" . $this->getWheres($wheres)
-            ->reduce(function ($carry, $where) {
-                $value = $carry;
-                $value .= $this->getNestedClauses($where);
-                $value .= $this->getColumnClauses($where);
-                $value .= $this->getRawClauses($where);
-                $value .= $this->getInAndNotInClauses($where);
-                $value .= $this->getOtherClauses($where);
+                ->reduce(function ($carry, $where) {
+                    $value = $carry;
+                    $value .= $this->getNestedClauses($where);
+                    $value .= $this->getColumnClauses($where);
+                    $value .= $this->getRawClauses($where);
+                    $value .= $this->getInAndNotInClauses($where);
+                    $value .= $this->getOtherClauses($where);
 
-                return $value;
-            });
+                    return $value;
+                });
     }
 
     protected function getWheres(array $wheres) : Collection
@@ -455,11 +420,11 @@ class CacheKey
         return $result;
     }
 
-    private function processEnum(BackedEnum|UnitEnum|Expression|string|null $value): ?string
+    private function processEnum(\BackedEnum|\UnitEnum|Expression|string $value): string
     {
-        if ($value instanceof BackedEnum) {
+        if ($value instanceof \BackedEnum) {
             return $value->value;
-        } elseif ($value instanceof UnitEnum) {
+        } elseif ($value instanceof \UnitEnum) {
             return $value->name;
         } elseif ($value instanceof Expression) {
             return $this->expressionToString($value);
