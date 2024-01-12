@@ -1,6 +1,6 @@
 <?php
 
-namespace forshippingBV\LaravelModelCaching;
+namespace ForshippingBV\LaravelModelCaching;
 
 use Illuminate\Container\Container;
 

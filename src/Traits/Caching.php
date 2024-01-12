@@ -1,6 +1,6 @@
 <?php
 
-namespace forshippingBV\LaravelModelCaching\Traits;
+namespace ForshippingBV\LaravelModelCaching\Traits;
 
 use Closure;
 use GeneaLabs\LaravelModelCaching\CachedBuilder;

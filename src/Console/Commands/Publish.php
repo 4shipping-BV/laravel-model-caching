@@ -1,4 +1,4 @@
-<?php namespace forshippingBV\LaravelModelCaching\Console\Commands;
+<?php namespace ForshippingBV\LaravelModelCaching\Console\Commands;
 
 use GeneaLabs\LaravelModelCaching\Providers\Service;
 use Illuminate\Console\Command;

@@ -1,4 +1,4 @@
-<?php namespace forshippingBV\LaravelModelCaching;
+<?php namespace ForshippingBV\LaravelModelCaching;
 
 use GeneaLabs\LaravelModelCaching\Traits\CachePrefixing;
 use Illuminate\Database\Eloquent\Model;
